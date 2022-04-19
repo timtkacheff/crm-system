@@ -22,12 +22,12 @@ public class MasterService implements MasterServiceInterface{
     }
 
     @Override
-    public Master getMasterById(int id) {
-        return masterRepository.getById(id);
+    public Master getMasterById(Integer id) {
+        return masterRepository.findById(id).orElse(null);
     }
 
     @Override
-    public void registerMaster(MasterDTO masterDTO) {
+    public Master registerMaster(MasterDTO masterDTO) {
 
         Master master = Master.builder()
                 .name(masterDTO.getName())
@@ -37,5 +37,7 @@ public class MasterService implements MasterServiceInterface{
                 .build();
 
         masterRepository.save(master);
+
+        return master;
     }
 }

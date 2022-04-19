@@ -20,4 +20,9 @@ public record MasterController(MasterService masterService) {
     public List<Master> getAllAvailableMasters() {
         return masterService.getAllMasters();
     }
+
+    @GetMapping("/{id}")
+    public Master getMasterById(@PathVariable Integer id) {
+        return masterService.getMasterById(id);
+    }
 }

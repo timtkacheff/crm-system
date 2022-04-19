@@ -9,7 +9,7 @@ public interface MasterServiceInterface {
 
     List<Master> getAllMasters();
 
-    Master getMasterById(int id);
+    Master getMasterById(Integer id);
 
-    void  registerMaster(MasterDTO masterDTO);
+    Master registerMaster(MasterDTO masterDTO);
 }
