@@ -7,7 +7,7 @@ import ru.tkacheff.crm.entity.Client;
 @Component
 public class ClientMapper {
 
-    public static Client fromDTO(ClientDTO clientDTO) {
+    public Client fromDTO(ClientDTO clientDTO) {
         return Client.builder()
                 .name(clientDTO.getName())
                 .phoneNumber(clientDTO.getPhoneNumber())

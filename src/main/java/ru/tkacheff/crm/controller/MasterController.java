@@ -1,9 +1,7 @@
 package ru.tkacheff.crm.controller;
 
 import org.springframework.web.bind.annotation.*;
-import ru.tkacheff.crm.dto.ClientDTO;
 import ru.tkacheff.crm.dto.MasterDTO;
-import ru.tkacheff.crm.entity.Client;
 import ru.tkacheff.crm.entity.Master;
 import ru.tkacheff.crm.service.MasterService;
 
@@ -25,8 +23,8 @@ public record MasterController(MasterService masterService) {
     }
 
     @PostMapping
-    public void registerMaster(@RequestBody @Valid MasterDTO masterDTO) {
-        masterService.registerMaster(masterDTO);
+    public Master registerMaster(@RequestBody @Valid MasterDTO masterDTO) {
+        return masterService.registerMaster(masterDTO);
     }
 
     @PutMapping("/{id}")

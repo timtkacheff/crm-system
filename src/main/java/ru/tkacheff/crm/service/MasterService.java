@@ -14,9 +14,11 @@ import java.util.List;
 public class MasterService implements MasterServiceInterface{
 
     private final MasterRepository masterRepository;
+    private final MasterMapper masterMapper;
 
-    public MasterService(MasterRepository masterRepository) {
+    public MasterService(MasterRepository masterRepository, MasterMapper masterMapper) {
         this.masterRepository = masterRepository;
+        this.masterMapper = masterMapper;
     }
 
     @Override
@@ -31,11 +33,11 @@ public class MasterService implements MasterServiceInterface{
     }
 
     @Override
-    public void registerMaster(MasterDTO masterDTO) {
+    public Master registerMaster(MasterDTO masterDTO) {
 
-        Master master = MasterMapper.fromDTO(masterDTO);
+        Master master = masterMapper.fromDTO(masterDTO);
 
-        masterRepository.save(master);
+        return masterRepository.save(master);
 
     }
 
@@ -44,7 +46,7 @@ public class MasterService implements MasterServiceInterface{
 
         Master masterToUpdate = getMasterById(id);
 
-        Master masterSource = MasterMapper.fromDTO(masterDTO);
+        Master masterSource = masterMapper.fromDTO(masterDTO);
 
         BeanUtils.copyProperties(masterSource, masterToUpdate);
 

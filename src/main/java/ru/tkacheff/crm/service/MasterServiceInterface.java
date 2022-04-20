@@ -13,7 +13,7 @@ public interface MasterServiceInterface {
 
     Master getMasterById(Integer id);
 
-    void registerMaster(MasterDTO masterDTO);
+    Master registerMaster(MasterDTO masterDTO);
 
     Master updateMaster(MasterDTO masterDTO, Integer id);
 

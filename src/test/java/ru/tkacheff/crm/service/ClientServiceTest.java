@@ -9,6 +9,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import ru.tkacheff.crm.dto.ClientDTO;
 import ru.tkacheff.crm.dto.MasterDTO;
+import ru.tkacheff.crm.dto.mapper.ClientMapper;
 import ru.tkacheff.crm.entity.Client;
 import ru.tkacheff.crm.entity.Master;
 import ru.tkacheff.crm.repository.ClientRepository;
@@ -30,9 +31,12 @@ public class ClientServiceTest {
     @Mock
     private ClientRepository clientRepository;
 
+    @Mock
+    private ClientMapper clientMapper;
+
     @BeforeEach
     void setUp() {
-        clientService = new ClientService(clientRepository);
+        clientService = new ClientService(clientRepository, clientMapper);
     }
 
     @AfterEach

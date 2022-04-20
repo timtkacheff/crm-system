@@ -11,7 +11,7 @@ public interface ClientServiceInterface {
 
     Client getClientById(Integer id);
 
-    void registerClient(ClientDTO clientDTO);
+    Client registerClient(ClientDTO clientDTO);
 
     Client updateClient(ClientDTO clientDTO, Integer id);
 

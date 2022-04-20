@@ -1,8 +1,7 @@
 package ru.tkacheff.crm.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import ru.tkacheff.crm.dto.AppointmentDTO;
 import ru.tkacheff.crm.entity.Appointment;
 import ru.tkacheff.crm.service.AppointmentService;
 
@@ -15,6 +14,11 @@ public record AppointmentController(AppointmentService appointmentService) {
     @GetMapping
     public List<Appointment> getAllAppointments() {
         return appointmentService.getAllAppointments();
+    }
+
+    @PostMapping
+    public Appointment createNewAppointment(@RequestBody AppointmentDTO appointmentDTO) {
+        return appointmentService.createNewAppointment(appointmentDTO);
     }
 
 }

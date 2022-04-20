@@ -7,7 +7,7 @@ import ru.tkacheff.crm.entity.Master;
 @Component
 public class MasterMapper {
 
-    public static Master fromDTO(MasterDTO masterDTO) {
+    public Master fromDTO(MasterDTO masterDTO) {
         return Master.builder()
                 .name(masterDTO.getName())
                 .hourlyRate(masterDTO.getHourlyRate())

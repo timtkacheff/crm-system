@@ -23,8 +23,8 @@ public record ClientController(ClientService clientService) {
     }
 
     @PostMapping
-    public void registerClient(@RequestBody @Valid ClientDTO clientDTO) {
-        clientService.registerClient(clientDTO);
+    public Client registerClient(@RequestBody @Valid ClientDTO clientDTO) {
+        return clientService.registerClient(clientDTO);
     }
 
     @PutMapping("/{id}")

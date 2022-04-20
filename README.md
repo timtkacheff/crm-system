@@ -8,8 +8,6 @@
 - Spring (Boot, Data, Web)
 - Hibernate
 - Mockito, AssertJ
-- Docker
 - PostgreSQL
 - Lombok
 - Insomnia для тестирования API
-- 

@@ -8,6 +8,7 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import ru.tkacheff.crm.dto.MasterDTO;
+import ru.tkacheff.crm.dto.mapper.MasterMapper;
 import ru.tkacheff.crm.entity.Master;
 import ru.tkacheff.crm.repository.MasterRepository;
 
@@ -27,9 +28,12 @@ public class MasterServiceTest {
     @Mock
     private MasterRepository masterRepository;
 
+    @Mock
+    private MasterMapper masterMapper;
+
     @BeforeEach
     void setUp() {
-        masterService = new MasterService(masterRepository);
+        masterService = new MasterService(masterRepository, masterMapper);
     }
 
     @AfterEach

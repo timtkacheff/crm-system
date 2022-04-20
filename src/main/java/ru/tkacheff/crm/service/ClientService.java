@@ -14,9 +14,12 @@ import java.util.List;
 public class ClientService implements ClientServiceInterface {
 
     private final ClientRepository clientRepository;
+    private final ClientMapper clientMapper;
 
-    public ClientService(ClientRepository clientRepository) {
+    public ClientService(ClientRepository clientRepository,
+                         ClientMapper clientMapper) {
         this.clientRepository = clientRepository;
+        this.clientMapper = clientMapper;
     }
 
     @Override
@@ -32,11 +35,11 @@ public class ClientService implements ClientServiceInterface {
     }
 
     @Override
-    public void registerClient(ClientDTO clientDTO) {
+    public Client registerClient(ClientDTO clientDTO) {
 
-        Client client = ClientMapper.fromDTO(clientDTO);
+        Client client = clientMapper.fromDTO(clientDTO);
 
-        clientRepository.save(client);
+        return  clientRepository.save(client);
     }
 
     @Override
@@ -44,7 +47,7 @@ public class ClientService implements ClientServiceInterface {
 
         Client clientToUpdate = getClientById(id);
 
-        Client clientSource = ClientMapper.fromDTO(clientDTO);
+        Client clientSource = clientMapper.fromDTO(clientDTO);
 
         BeanUtils.copyProperties(clientSource, clientToUpdate);
 

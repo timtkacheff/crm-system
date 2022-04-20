@@ -1,5 +1,6 @@
 package ru.tkacheff.crm.entity;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import ru.tkacheff.crm.AppointmentStatus;
@@ -7,6 +8,7 @@ import ru.tkacheff.crm.AppointmentStatus;
 import javax.persistence.*;
 
 @Entity
+@Builder
 public class Appointment {
 
     @Id
