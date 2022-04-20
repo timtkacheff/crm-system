@@ -5,16 +5,12 @@ import ru.tkacheff.crm.dto.MasterDTO;
 import ru.tkacheff.crm.entity.Master;
 import ru.tkacheff.crm.service.MasterService;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
 @RequestMapping("api/masters")
 public record MasterController(MasterService masterService) {
-
-    @PostMapping
-    public void registerMaster(@RequestBody MasterDTO masterDTO) {
-        masterService.registerMaster(masterDTO);
-    }
 
     @GetMapping
     public List<Master> getAllAvailableMasters() {
@@ -24,5 +20,10 @@ public record MasterController(MasterService masterService) {
     @GetMapping("/{id}")
     public Master getMasterById(@PathVariable Integer id) {
         return masterService.getMasterById(id);
+    }
+
+    @PostMapping
+    public void registerMaster(@RequestBody @Valid MasterDTO masterDTO) {
+        masterService.registerMaster(masterDTO);
     }
 }

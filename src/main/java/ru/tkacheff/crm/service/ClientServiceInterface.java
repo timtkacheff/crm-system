@@ -10,4 +10,6 @@ public interface ClientServiceInterface {
     List<Client> getAllClients();
 
     void registerClient(ClientDTO clientDTO);
+
+    Client getClientById(Integer id);
 }

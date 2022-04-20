@@ -5,6 +5,7 @@ import ru.tkacheff.crm.dto.ClientDTO;
 import ru.tkacheff.crm.entity.Client;
 import ru.tkacheff.crm.service.ClientService;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -16,8 +17,13 @@ public record ClientController(ClientService clientService) {
         return clientService.getAllClients();
     }
 
+    @GetMapping("/{id}")
+    public Client getClientById(@PathVariable Integer id) {
+        return clientService.getClientById(id);
+    }
+
     @PostMapping
-    public void registerClient(@RequestBody ClientDTO clientDTO) {
+    public void registerClient(@RequestBody @Valid ClientDTO clientDTO) {
         clientService.registerClient(clientDTO);
     }
 }

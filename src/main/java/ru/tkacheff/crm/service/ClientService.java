@@ -3,12 +3,13 @@ package ru.tkacheff.crm.service;
 import org.springframework.stereotype.Service;
 import ru.tkacheff.crm.dto.ClientDTO;
 import ru.tkacheff.crm.entity.Client;
+import ru.tkacheff.crm.exception.ClientNotFoundException;
 import ru.tkacheff.crm.repository.ClientRepository;
 
 import java.util.List;
 
 @Service
-public class ClientService implements ClientServiceInterface{
+public class ClientService implements ClientServiceInterface {
 
     private final ClientRepository clientRepository;
 
@@ -19,6 +20,13 @@ public class ClientService implements ClientServiceInterface{
     @Override
     public List<Client> getAllClients() {
         return clientRepository.findAll();
+    }
+
+    @Override
+    public Client getClientById(Integer id) {
+        return clientRepository.findById(id)
+                .orElseThrow(() ->
+                        new ClientNotFoundException("Client with id " + id + " not found"));
     }
 
     @Override
