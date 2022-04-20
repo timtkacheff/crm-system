@@ -4,7 +4,6 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import ru.tkacheff.crm.dto.MasterDTO;
@@ -46,15 +45,9 @@ public class MasterServiceTest {
 
         MasterDTO masterDTO = new MasterDTO("test", "num", "testing", 25.0);
 
-        masterService.registerMaster(masterDTO);
+        Master master = masterService.registerMaster(masterDTO);
 
-        ArgumentCaptor<Master> masterArgumentCaptor = ArgumentCaptor.forClass(Master.class);
-
-        verify(masterRepository).save(masterArgumentCaptor.capture());
-        Master capturedMaster = masterArgumentCaptor.getValue();
-
-        assertThat(capturedMaster.getName()).isEqualTo(masterDTO.getName());
-        assertThat(capturedMaster.getSpecialization()).isEqualTo(masterDTO.getSpecialization());
+        verify(masterRepository).save(master);
 
     }
 

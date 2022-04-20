@@ -7,6 +7,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
 import ru.tkacheff.crm.dto.ClientDTO;
 import ru.tkacheff.crm.dto.MasterDTO;
 import ru.tkacheff.crm.dto.mapper.ClientMapper;
@@ -45,19 +46,14 @@ public class ClientServiceTest {
     }
 
     @Test
-    void shouldSaveMasterUsingGivenDTO() {
+    void shouldSaveClientUsingGivenDTO() {
 
         ClientDTO clientDTO = new ClientDTO("John", "88888");
 
-        clientService.registerClient(clientDTO);
+        Client client = clientService.registerClient(clientDTO);
 
-        ArgumentCaptor<Client> masterArgumentCaptor = ArgumentCaptor.forClass(Client.class);
+        verify(clientRepository).save(client);
 
-        verify(clientRepository).save(masterArgumentCaptor.capture());
-        Client capturedClient = masterArgumentCaptor.getValue();
-
-        assertThat(capturedClient.getName()).isEqualTo(clientDTO.getName());
-        assertThat(capturedClient.getPhoneNumber()).isEqualTo(clientDTO.getPhoneNumber());
 
     }
 
@@ -68,7 +64,7 @@ public class ClientServiceTest {
     }
 
     @Test
-    void shouldReturnMasterById() {
+    void shouldReturnClientById() {
         Client client = new Client("test", "8788");
 
         when(clientRepository.findById(anyInt())).thenReturn(Optional.of(client));

@@ -8,11 +8,11 @@ import ru.tkacheff.crm.AppointmentStatus;
 import javax.persistence.*;
 
 @Entity
-@Builder
 public class Appointment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Getter
     private Integer id;
 
     @Getter
@@ -35,11 +35,12 @@ public class Appointment {
 
     @Getter
     @Setter
-    private AppointmentStatus status = AppointmentStatus.PAYMENT;
+    @Enumerated(EnumType.STRING)
+    private AppointmentStatus status;
 
     public Appointment() {
     }
-
+    @Builder
     public Appointment(Client client, Master master, Integer duration, Double price, AppointmentStatus status) {
         this.client = client;
         this.master = master;

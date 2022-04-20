@@ -1,12 +1,16 @@
 package ru.tkacheff.crm.dto.mapper;
 
 import org.springframework.stereotype.Component;
+import ru.tkacheff.crm.AppointmentStatus;
 import ru.tkacheff.crm.dto.AppointmentDTO;
 import ru.tkacheff.crm.entity.Appointment;
 import ru.tkacheff.crm.entity.Client;
 import ru.tkacheff.crm.entity.Master;
 import ru.tkacheff.crm.service.ClientService;
 import ru.tkacheff.crm.service.MasterService;
+
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 @Component
 public class AppointmentMapper {
@@ -26,11 +30,16 @@ public class AppointmentMapper {
 
         Double hourlyRate = master.getHourlyRate();
 
+        double price = appointmentDTO.getDuration() * hourlyRate;
+        BigDecimal db = new BigDecimal(price);
+        price = db.setScale(2, RoundingMode.HALF_UP).doubleValue();
+
         return Appointment.builder()
                 .client(client)
                 .master(master)
                 .duration(appointmentDTO.getDuration())
-                .price(appointmentDTO.getDuration() * hourlyRate)
+                .price(price)
+                .status(AppointmentStatus.IN_PROGRESS)
                 .build();
 
     }

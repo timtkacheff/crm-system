@@ -21,4 +21,6 @@ public record AppointmentController(AppointmentService appointmentService) {
         return appointmentService.createNewAppointment(appointmentDTO);
     }
 
+
+
 }
