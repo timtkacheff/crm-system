@@ -1,5 +1,6 @@
 package ru.tkacheff.crm.service;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import ru.tkacheff.crm.dto.ClientDTO;
 import ru.tkacheff.crm.entity.Client;
@@ -38,5 +39,26 @@ public class ClientService implements ClientServiceInterface {
                 .build();
 
         clientRepository.save(client);
+    }
+
+    @Override
+    public Client updateClient(ClientDTO clientDTO, Integer id) {
+
+        Client clientToUpdate = getClientById(id);
+
+        Client clientSource = Client.builder()
+                .name(clientDTO.getName())
+                .phoneNumber(clientDTO.getPhoneNumber())
+                .build();
+
+        BeanUtils.copyProperties(clientSource, clientToUpdate);
+
+        return clientRepository.save(clientToUpdate);
+    }
+
+    @Override
+    public void deleteClient(Integer id) {
+        Client clientToDelete = getClientById(id);
+        clientRepository.delete(clientToDelete);
     }
 }

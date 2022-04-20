@@ -35,6 +35,11 @@ public class Master {
     @Setter
     private Double hourlyRate;
 
+    @Column(name = "income")
+    @Getter
+    @Setter
+    private Double income = 0.0;
+
     public Master() {
 
     }

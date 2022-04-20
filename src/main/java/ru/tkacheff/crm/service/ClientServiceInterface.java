@@ -9,7 +9,11 @@ public interface ClientServiceInterface {
 
     List<Client> getAllClients();
 
+    Client getClientById(Integer id);
+
     void registerClient(ClientDTO clientDTO);
 
-    Client getClientById(Integer id);
+    Client updateClient(ClientDTO clientDTO, Integer id);
+
+    void deleteClient(Integer id);
 }

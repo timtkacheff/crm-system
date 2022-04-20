@@ -1,5 +1,6 @@
 package ru.tkacheff.crm.service;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import ru.tkacheff.crm.dto.MasterDTO;
 import ru.tkacheff.crm.entity.Master;
@@ -29,7 +30,7 @@ public class MasterService implements MasterServiceInterface{
     }
 
     @Override
-    public Master registerMaster(MasterDTO masterDTO) {
+    public void registerMaster(MasterDTO masterDTO) {
 
         Master master = Master.builder()
                 .name(masterDTO.getName())
@@ -39,7 +40,28 @@ public class MasterService implements MasterServiceInterface{
                 .build();
 
         masterRepository.save(master);
+    }
 
-        return master;
+    @Override
+    public Master updateMaster(MasterDTO masterDTO, Integer id) {
+
+        Master masterToUpdate = getMasterById(id);
+
+        Master masterSource = Master.builder()
+                .name(masterDTO.getName())
+                .phoneNumber(masterDTO.getPhoneNumber())
+                .specialization(masterDTO.getSpecialization())
+                .hourlyRate(masterDTO.getHourlyRate())
+                .build();
+
+        BeanUtils.copyProperties(masterSource, masterToUpdate);
+
+        return masterRepository.save(masterToUpdate);
+    }
+
+    @Override
+    public void deleteMaster(Integer id) {
+        Master masterToDelete = getMasterById(id);
+        masterRepository.delete(masterToDelete);
     }
 }

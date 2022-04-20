@@ -26,4 +26,14 @@ public record ClientController(ClientService clientService) {
     public void registerClient(@RequestBody @Valid ClientDTO clientDTO) {
         clientService.registerClient(clientDTO);
     }
+
+    @PutMapping("/{id}")
+    public Client updateClient(@PathVariable Integer id, @RequestBody ClientDTO clientDTO) {
+        return clientService.updateClient(clientDTO, id);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteClient(@PathVariable Integer id) {
+        clientService.deleteClient(id);
+    }
 }

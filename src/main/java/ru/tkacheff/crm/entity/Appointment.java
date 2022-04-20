@@ -1,0 +1,48 @@
+package ru.tkacheff.crm.entity;
+
+import lombok.Getter;
+import lombok.Setter;
+import ru.tkacheff.crm.AppointmentStatus;
+
+import javax.persistence.*;
+
+@Entity
+public class Appointment {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    @Getter
+    @Setter
+    @OneToOne
+    private Client client;
+
+    @Getter
+    @Setter
+    @OneToOne
+    private Master master;
+
+    @Getter
+    @Setter
+    private Integer duration;
+
+    @Getter
+    @Setter
+    private Double price;
+
+    @Getter
+    @Setter
+    private AppointmentStatus status = AppointmentStatus.PAYMENT;
+
+    public Appointment() {
+    }
+
+    public Appointment(Client client, Master master, Integer duration, Double price, AppointmentStatus status) {
+        this.client = client;
+        this.master = master;
+        this.duration = duration;
+        this.price = price;
+        this.status = status;
+    }
+}
