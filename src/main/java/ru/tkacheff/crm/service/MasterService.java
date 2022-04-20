@@ -3,6 +3,7 @@ package ru.tkacheff.crm.service;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import ru.tkacheff.crm.dto.MasterDTO;
+import ru.tkacheff.crm.dto.mapper.MasterMapper;
 import ru.tkacheff.crm.entity.Master;
 import ru.tkacheff.crm.exception.MasterNotFoundException;
 import ru.tkacheff.crm.repository.MasterRepository;
@@ -32,14 +33,10 @@ public class MasterService implements MasterServiceInterface{
     @Override
     public void registerMaster(MasterDTO masterDTO) {
 
-        Master master = Master.builder()
-                .name(masterDTO.getName())
-                .phoneNumber(masterDTO.getPhoneNumber())
-                .specialization(masterDTO.getSpecialization())
-                .hourlyRate(masterDTO.getHourlyRate())
-                .build();
+        Master master = MasterMapper.fromDTO(masterDTO);
 
         masterRepository.save(master);
+
     }
 
     @Override
@@ -47,12 +44,7 @@ public class MasterService implements MasterServiceInterface{
 
         Master masterToUpdate = getMasterById(id);
 
-        Master masterSource = Master.builder()
-                .name(masterDTO.getName())
-                .phoneNumber(masterDTO.getPhoneNumber())
-                .specialization(masterDTO.getSpecialization())
-                .hourlyRate(masterDTO.getHourlyRate())
-                .build();
+        Master masterSource = MasterMapper.fromDTO(masterDTO);
 
         BeanUtils.copyProperties(masterSource, masterToUpdate);
 

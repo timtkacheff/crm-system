@@ -11,5 +11,4 @@ public class CrmApplication {
     }
     // TODO: Custom validation (format, message, exception)
     // TODO: Appointment Controller
-    // TODO: DTO mapper
 }

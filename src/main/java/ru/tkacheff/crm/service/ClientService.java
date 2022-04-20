@@ -3,6 +3,7 @@ package ru.tkacheff.crm.service;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import ru.tkacheff.crm.dto.ClientDTO;
+import ru.tkacheff.crm.dto.mapper.ClientMapper;
 import ru.tkacheff.crm.entity.Client;
 import ru.tkacheff.crm.exception.ClientNotFoundException;
 import ru.tkacheff.crm.repository.ClientRepository;
@@ -33,10 +34,7 @@ public class ClientService implements ClientServiceInterface {
     @Override
     public void registerClient(ClientDTO clientDTO) {
 
-        Client client = Client.builder()
-                .name(clientDTO.getName())
-                .phoneNumber(clientDTO.getPhoneNumber())
-                .build();
+        Client client = ClientMapper.fromDTO(clientDTO);
 
         clientRepository.save(client);
     }
@@ -46,10 +44,7 @@ public class ClientService implements ClientServiceInterface {
 
         Client clientToUpdate = getClientById(id);
 
-        Client clientSource = Client.builder()
-                .name(clientDTO.getName())
-                .phoneNumber(clientDTO.getPhoneNumber())
-                .build();
+        Client clientSource = ClientMapper.fromDTO(clientDTO);
 
         BeanUtils.copyProperties(clientSource, clientToUpdate);
 
