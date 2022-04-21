@@ -13,10 +13,12 @@ public class MasterExceptionHandler {
     @ExceptionHandler
     public ResponseEntity<ExceptionEntity> handleNotFound(MasterNotFoundException exception) {
 
-        ExceptionEntity response =
-                new ExceptionEntity(HttpStatus.NOT_FOUND, exception.getLocalizedMessage());
+        HttpStatus status = HttpStatus.NOT_FOUND;
 
-        return new ResponseEntity<>(response, response.status());
+        ExceptionEntity response =
+                new ExceptionEntity(status.value(), exception.getLocalizedMessage());
+
+        return new ResponseEntity<>(response, status);
     }
 
 }

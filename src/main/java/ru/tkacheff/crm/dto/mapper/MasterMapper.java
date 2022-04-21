@@ -12,6 +12,7 @@ public class MasterMapper {
                 .name(masterDTO.getName())
                 .hourlyRate(masterDTO.getHourlyRate())
                 .specialization(masterDTO.getSpecialization())
+                .phoneNumber(masterDTO.getPhoneNumber())
                 .build();
     }
 }
