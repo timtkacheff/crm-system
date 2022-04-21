@@ -22,14 +22,25 @@ public record AppointmentController(AppointmentService appointmentService) {
         return appointmentService.getAppointmentListByStatus(status);
     }
 
-    @PostMapping
-    public Appointment createNewAppointment(@RequestBody @Valid AppointmentDTO appointmentDTO) {
-        return appointmentService.createNewAppointment(appointmentDTO);
-    }
-
     @GetMapping("/{id}")
     public Appointment getAppointmentById(@PathVariable int id) {
         return appointmentService.getAppointmentById(id);
     }
 
+    @PostMapping
+    public Appointment createNewAppointment(@RequestBody @Valid AppointmentDTO appointmentDTO) {
+        return appointmentService.createNewAppointment(appointmentDTO);
+    }
+
+    @PutMapping("/{id}")
+    public Appointment updateAppointment(@RequestBody @Valid AppointmentDTO appointmentDTO,
+                                         @PathVariable int id) {
+
+        return appointmentService.updateAppointment(appointmentDTO, id);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteAppointment(@PathVariable int id) {
+        appointmentService.deleteAppointment(id);
+    }
 }

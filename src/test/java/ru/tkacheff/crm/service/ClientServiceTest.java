@@ -5,12 +5,17 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import ru.tkacheff.crm.dto.AppointmentDTO;
 import ru.tkacheff.crm.dto.ClientDTO;
 import ru.tkacheff.crm.dto.MasterDTO;
 import ru.tkacheff.crm.dto.mapper.ClientMapper;
+import ru.tkacheff.crm.entity.Appointment;
 import ru.tkacheff.crm.entity.Client;
 import ru.tkacheff.crm.entity.Master;
 import ru.tkacheff.crm.repository.ClientRepository;
@@ -27,6 +32,7 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 public class ClientServiceTest {
 
+    @InjectMocks
     private ClientService clientService;
 
     @Mock
@@ -34,11 +40,6 @@ public class ClientServiceTest {
 
     @Mock
     private ClientMapper clientMapper;
-
-    @BeforeEach
-    void setUp() {
-        clientService = new ClientService(clientRepository, clientMapper);
-    }
 
     @AfterEach
     void tearDown() {
@@ -54,7 +55,6 @@ public class ClientServiceTest {
 
         verify(clientRepository).save(client);
 
-
     }
 
     @Test
@@ -65,13 +65,39 @@ public class ClientServiceTest {
 
     @Test
     void shouldReturnClientById() {
-        Client client = new Client("test", "8788");
+        Client expected = new Client("test", "8788");
 
-        when(clientRepository.findById(anyInt())).thenReturn(Optional.of(client));
+        when(clientRepository.findById(anyInt())).thenReturn(Optional.of(expected));
 
-        Client expected = clientService.getClientById(anyInt());
+        Client client = clientService.getClientById(anyInt());
 
         verify(clientRepository).findById(anyInt());
-        assertThat(expected).isEqualTo(client);
+        assertThat(client).isEqualTo(expected);
+    }
+
+    @Test
+    void shouldUpdateClient() {
+
+        ClientDTO dtoSource = new ClientDTO("", "");
+        Client source = new Client();
+
+        when(clientMapper.fromDTO(dtoSource)).thenReturn(source);
+
+        Client target = new Client();
+
+        when(clientRepository.findById(1)).thenReturn(Optional.of(target));
+
+        clientService.updateClient(dtoSource, 1);
+        verify(clientRepository).save(target);
+        
+    }
+    @Test
+    void shouldDeleteClient() {
+        Client underTest = new Client();
+
+        when(clientRepository.findById(1)).thenReturn(Optional.of(underTest));
+
+        clientService.deleteClient(1);
+        verify(clientRepository).delete(underTest);
     }
 }

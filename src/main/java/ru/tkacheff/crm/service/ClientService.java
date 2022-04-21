@@ -46,7 +46,6 @@ public class ClientService implements ClientServiceInterface {
     public Client updateClient(ClientDTO clientDTO, Integer id) {
 
         Client clientToUpdate = getClientById(id);
-
         Client clientSource = clientMapper.fromDTO(clientDTO);
 
         BeanUtils.copyProperties(clientSource, clientToUpdate);

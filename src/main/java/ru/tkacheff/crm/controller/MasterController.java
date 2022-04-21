@@ -28,7 +28,8 @@ public record MasterController(MasterService masterService) {
     }
 
     @PutMapping("/{id}")
-    public Master updateClient(@PathVariable Integer id, @RequestBody MasterDTO masterDTO) {
+    public Master updateMaster(@PathVariable Integer id,
+                               @RequestBody @Valid MasterDTO masterDTO) {
         return masterService.updateMaster(masterDTO, id);
     }
 

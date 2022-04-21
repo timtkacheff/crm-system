@@ -28,7 +28,8 @@ public record ClientController(ClientService clientService) {
     }
 
     @PutMapping("/{id}")
-    public Client updateClient(@PathVariable Integer id, @RequestBody ClientDTO clientDTO) {
+    public Client updateClient(@PathVariable Integer id,
+                               @RequestBody @Valid ClientDTO clientDTO) {
         return clientService.updateClient(clientDTO, id);
     }
 

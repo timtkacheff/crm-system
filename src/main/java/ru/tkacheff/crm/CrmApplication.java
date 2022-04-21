@@ -9,6 +9,10 @@ public class CrmApplication {
     public static void main(String[] args) {
         SpringApplication.run(CrmApplication.class, args);
     }
-    // TODO: Custom validation (format, message, exception)
-    // TODO: Appointment Controller
+
+    //TODO: enhanced search w/ query params (fuzzy search?)
+    //TODO: Swagger/OpenAPI integration
+    //TODO: appointment status change method
+    //TODO: increase income on status finished
+    //TODO: add archive field and move finished appointments to archive !!!
 }
