@@ -53,7 +53,6 @@ public class AppointmentService implements AppointmentServiceInterface {
 
     @Override
     public Appointment updateAppointment(AppointmentDTO appointmentDTO, int id) {
-
         Appointment appointmentToUpdate = getAppointmentById(id);
         Appointment appointmentSource = appointmentMapper.fromDTO(appointmentDTO);
 

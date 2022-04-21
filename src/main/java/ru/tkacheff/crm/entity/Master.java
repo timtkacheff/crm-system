@@ -41,7 +41,6 @@ public class Master {
     private Double income = 0.0;
 
     public Master() {
-
     }
 
     @Builder

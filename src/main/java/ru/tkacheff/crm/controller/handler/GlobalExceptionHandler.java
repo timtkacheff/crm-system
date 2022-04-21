@@ -16,10 +16,9 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler
     public ResponseEntity<List<ExceptionEntity>> handleValidationViolation(MethodArgumentNotValidException exception) {
-
         List<ExceptionEntity> response = new ArrayList<>();
-        HttpStatus status = HttpStatus.NOT_ACCEPTABLE;
 
+        HttpStatus status = HttpStatus.NOT_ACCEPTABLE;
         for (ObjectError error : exception.getAllErrors()) {
             response.add(new ExceptionEntity(status.value(), error.getDefaultMessage()));
         }

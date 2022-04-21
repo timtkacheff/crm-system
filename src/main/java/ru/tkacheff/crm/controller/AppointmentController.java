@@ -35,7 +35,6 @@ public record AppointmentController(AppointmentService appointmentService) {
     @PutMapping("/{id}")
     public Appointment updateAppointment(@RequestBody @Valid AppointmentDTO appointmentDTO,
                                          @PathVariable int id) {
-
         return appointmentService.updateAppointment(appointmentDTO, id);
     }
 

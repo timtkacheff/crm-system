@@ -36,15 +36,12 @@ public class ClientService implements ClientServiceInterface {
 
     @Override
     public Client registerClient(ClientDTO clientDTO) {
-
         Client client = clientMapper.fromDTO(clientDTO);
-
         return  clientRepository.save(client);
     }
 
     @Override
     public Client updateClient(ClientDTO clientDTO, Integer id) {
-
         Client clientToUpdate = getClientById(id);
         Client clientSource = clientMapper.fromDTO(clientDTO);
 

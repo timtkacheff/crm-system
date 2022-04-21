@@ -14,9 +14,7 @@ public class AppointmentExceptionHandler {
 
     @ExceptionHandler
     public ResponseEntity<ExceptionEntity> handleNotFoundId(AppointmentNotFoundException exception) {
-
         HttpStatus status = HttpStatus.NOT_FOUND;
-
         ExceptionEntity response =
                 new ExceptionEntity(status.value(), exception.getLocalizedMessage());
 
@@ -25,9 +23,7 @@ public class AppointmentExceptionHandler {
 
     @ExceptionHandler
     public ResponseEntity<ExceptionEntity> handleNotFoundStatus(StatusNotFoundException exception) {
-
         HttpStatus status = HttpStatus.NOT_FOUND;
-
         ExceptionEntity response =
                 new ExceptionEntity(status.value(), exception.getLocalizedMessage());
 

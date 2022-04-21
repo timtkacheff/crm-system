@@ -24,7 +24,6 @@ public class AppointmentMapper {
     }
 
     public Appointment fromDTO(AppointmentDTO appointmentDTO) {
-
         Client client = clientService.getClientById(appointmentDTO.getClientId());
         Master master = masterService.getMasterById(appointmentDTO.getMasterId());
 

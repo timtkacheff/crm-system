@@ -12,9 +12,7 @@ public class ClientExceptionHandler {
 
     @ExceptionHandler
     public ResponseEntity<ExceptionEntity> handleNotFound(ClientNotFoundException exception) {
-
         HttpStatus status = HttpStatus.NOT_FOUND;
-
         ExceptionEntity response =
                 new ExceptionEntity(status.value(), exception.getLocalizedMessage());
 

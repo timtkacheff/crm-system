@@ -34,18 +34,13 @@ public class MasterService implements MasterServiceInterface{
 
     @Override
     public Master registerMaster(MasterDTO masterDTO) {
-
         Master master = masterMapper.fromDTO(masterDTO);
-
         return masterRepository.save(master);
-
     }
 
     @Override
     public Master updateMaster(MasterDTO masterDTO, Integer id) {
-
         Master masterToUpdate = getMasterById(id);
-
         Master masterSource = masterMapper.fromDTO(masterDTO);
 
         BeanUtils.copyProperties(masterSource, masterToUpdate);
