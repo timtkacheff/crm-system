@@ -6,6 +6,7 @@ import ru.tkacheff.crm.dto.AppointmentDTO;
 import ru.tkacheff.crm.dto.mapper.AppointmentMapper;
 import ru.tkacheff.crm.entity.Appointment;
 import ru.tkacheff.crm.exception.AppointmentNotFoundException;
+import ru.tkacheff.crm.exception.FinisedStatusChangeException;
 import ru.tkacheff.crm.exception.StatusNotFoundException;
 import ru.tkacheff.crm.repository.AppointmentRepository;
 
@@ -49,9 +50,13 @@ public class AppointmentService implements AppointmentServiceInterface {
 
     @Override
     public Appointment updateAppointmentStatus(int id, String input) {
-        AppointmentStatus status = convertStringToStatus(input);
         Appointment appointment = getAppointmentById(id);
 
+        if (appointment.getStatus() == AppointmentStatus.FINISHED) {
+            throw new FinisedStatusChangeException("Appointment already finished");
+        }
+
+        AppointmentStatus status = convertStringToStatus(input);
         appointment.setStatus(status);
 
         return appointmentRepository.save(appointment);
@@ -70,4 +75,5 @@ public class AppointmentService implements AppointmentServiceInterface {
             throw new StatusNotFoundException("'" + input + "'" + " not found");
         }
     }
+
 }
