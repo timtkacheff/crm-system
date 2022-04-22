@@ -11,8 +11,4 @@ public class CrmApplication {
     public static void main(String[] args) {
         SpringApplication.run(CrmApplication.class, args);
     }
-
-    //TODO: appointment status change method                                    +
-    //TODO: increase income on status finished
-    //TODO: Swagger/OpenAPI integration
 }
