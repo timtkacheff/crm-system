@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import ru.tkacheff.crm.exception.AppointmentNotFoundException;
 import ru.tkacheff.crm.exception.ExceptionEntity;
-import ru.tkacheff.crm.exception.FinisedStatusChangeException;
+import ru.tkacheff.crm.exception.FinishedStatusChangeException;
 import ru.tkacheff.crm.exception.StatusNotFoundException;
 
 @ControllerAdvice
@@ -31,7 +31,7 @@ public class AppointmentExceptionHandler {
     }
 
     @ExceptionHandler
-    public ResponseEntity<ExceptionEntity> handleStatusChange(FinisedStatusChangeException exception) {
+    public ResponseEntity<ExceptionEntity> handleStatusChange(FinishedStatusChangeException exception) {
         HttpStatus status = HttpStatus.BAD_REQUEST;
         ExceptionEntity response =
                 new ExceptionEntity(status.value(), exception.getLocalizedMessage());

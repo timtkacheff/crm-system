@@ -53,4 +53,9 @@ public class MasterService implements MasterServiceInterface{
         Master masterToDelete = getMasterById(id);
         masterRepository.delete(masterToDelete);
     }
+
+    public void addToIncome(Master master, Double amount) {
+        master.setIncome(master.getIncome() + amount);
+        masterRepository.save(master);
+    }
 }

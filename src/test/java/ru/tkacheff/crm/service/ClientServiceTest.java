@@ -18,12 +18,14 @@ import ru.tkacheff.crm.dto.mapper.ClientMapper;
 import ru.tkacheff.crm.entity.Appointment;
 import ru.tkacheff.crm.entity.Client;
 import ru.tkacheff.crm.entity.Master;
+import ru.tkacheff.crm.exception.ClientNotFoundException;
 import ru.tkacheff.crm.repository.ClientRepository;
 import ru.tkacheff.crm.repository.MasterRepository;
 
 import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -73,6 +75,12 @@ public class ClientServiceTest {
 
         verify(clientRepository).findById(anyInt());
         assertThat(client).isEqualTo(expected);
+    }
+
+    @Test
+    void shouldThrowClientNotFoundException() {
+        assertThatThrownBy(() -> clientService.getClientById(anyInt()))
+                .isInstanceOf(ClientNotFoundException.class);
     }
 
     @Test

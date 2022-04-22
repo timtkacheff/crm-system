@@ -13,7 +13,7 @@ import java.util.List;
 public record MasterController(MasterService masterService) {
 
     @GetMapping
-    public List<Master> getAllAvailableMasters() {
+    public List<Master> getAllMasters() {
         return masterService.getAllMasters();
     }
 

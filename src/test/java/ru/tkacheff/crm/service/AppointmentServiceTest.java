@@ -6,9 +6,14 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import ru.tkacheff.crm.AppointmentStatus;
 import ru.tkacheff.crm.dto.AppointmentDTO;
 import ru.tkacheff.crm.dto.mapper.AppointmentMapper;
 import ru.tkacheff.crm.entity.Appointment;
+import ru.tkacheff.crm.entity.Client;
+import ru.tkacheff.crm.entity.Master;
+import ru.tkacheff.crm.exception.AppointmentNotFoundException;
+import ru.tkacheff.crm.exception.FinishedStatusChangeException;
 import ru.tkacheff.crm.exception.StatusNotFoundException;
 import ru.tkacheff.crm.repository.AppointmentRepository;
 
@@ -32,7 +37,6 @@ public class AppointmentServiceTest {
     @Mock
     private AppointmentMapper appointmentMapper;
 
-
     @AfterEach
     void tearDown() {
         appointmentRepository.deleteAll();
@@ -54,7 +58,7 @@ public class AppointmentServiceTest {
     }
 
     @Test
-    void shouldReturnClientById() {
+    void shouldReturnAppointmentById() {
 
         Appointment appointment = new Appointment();
 
@@ -67,9 +71,27 @@ public class AppointmentServiceTest {
     }
 
     @Test
+    void shouldThrowAppointmentNotFoundException() {
+        assertThatThrownBy(() -> appointmentService.getAppointmentById(anyInt()))
+                .isInstanceOf(AppointmentNotFoundException.class);
+    }
+
+    @Test
     void shouldThrowStatusNotFoundException() {
         assertThatThrownBy(() -> appointmentService.getAppointmentListByStatus("status"))
                 .isInstanceOf(StatusNotFoundException.class);
+    }
+
+    @Test
+    void shouldThrowFinishedStatusChangeException() {
+        Appointment appointment =
+                new Appointment(new Client(), new Master(), 3, 30.0, AppointmentStatus.FINISHED);
+
+        when(appointmentRepository.findById(anyInt())).thenReturn(Optional.of(appointment));
+
+        assertThatThrownBy(() -> appointmentService.updateAppointmentStatus(1, "in_progress"))
+                .isInstanceOf(FinishedStatusChangeException.class);
+
     }
 
     @Test

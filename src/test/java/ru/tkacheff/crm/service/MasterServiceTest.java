@@ -12,11 +12,14 @@ import ru.tkacheff.crm.dto.MasterDTO;
 import ru.tkacheff.crm.dto.mapper.MasterMapper;
 import ru.tkacheff.crm.entity.Client;
 import ru.tkacheff.crm.entity.Master;
+import ru.tkacheff.crm.exception.ClientNotFoundException;
+import ru.tkacheff.crm.exception.MasterNotFoundException;
 import ru.tkacheff.crm.repository.MasterRepository;
 
 import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -66,6 +69,12 @@ public class MasterServiceTest {
 
         verify(masterRepository).findById(anyInt());
         assertThat(master).isEqualTo(expected);
+    }
+
+    @Test
+    void shouldThrowMasterNotFoundException() {
+        assertThatThrownBy(() -> masterService.getMasterById(anyInt()))
+                .isInstanceOf(MasterNotFoundException.class);
     }
 
     @Test
