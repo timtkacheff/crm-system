@@ -9,17 +9,14 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/appointments")
+@RequestMapping("api/v1/appointments")
 public record AppointmentController(AppointmentService appointmentService) {
 
     @GetMapping
-    public List<Appointment> getAllAppointments() {
+    public List<Appointment> getAllAppointments(@RequestParam(name = "status", required = false)
+                                                String status) {
+        if (status != null) return appointmentService.getAppointmentListByStatus(status);
         return appointmentService.getAllAppointments();
-    }
-
-    @GetMapping("/status/{status}")
-    public List<Appointment> getAppointmentsByStatus(@PathVariable String status) {
-        return appointmentService.getAppointmentListByStatus(status);
     }
 
     @GetMapping("/{id}")
@@ -33,9 +30,9 @@ public record AppointmentController(AppointmentService appointmentService) {
     }
 
     @PutMapping("/{id}")
-    public Appointment updateAppointment(@RequestBody @Valid AppointmentDTO appointmentDTO,
-                                         @PathVariable int id) {
-        return appointmentService.updateAppointment(appointmentDTO, id);
+    public Appointment updateAppointmentStatus(@PathVariable int id,
+                                               @RequestParam(name = "status") String status) {
+        return appointmentService.updateAppointmentStatus(id, status);
     }
 
     @DeleteMapping("/{id}")

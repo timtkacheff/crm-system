@@ -1,6 +1,5 @@
 package ru.tkacheff.crm.service;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import ru.tkacheff.crm.AppointmentStatus;
 import ru.tkacheff.crm.dto.AppointmentDTO;
@@ -16,6 +15,7 @@ import java.util.List;
 public class AppointmentService implements AppointmentServiceInterface {
 
     private final AppointmentRepository appointmentRepository;
+
     private final AppointmentMapper appointmentMapper;
 
     public AppointmentService(AppointmentRepository appointmentRepository,
@@ -31,12 +31,8 @@ public class AppointmentService implements AppointmentServiceInterface {
 
     @Override
     public List<Appointment> getAppointmentListByStatus(String status) {
-        try {
-            AppointmentStatus search = AppointmentStatus.valueOf(status.toUpperCase());
-            return appointmentRepository.findAllByStatus(search);
-        } catch (IllegalArgumentException e) {
-            throw new StatusNotFoundException("'" + status + "'" + " not found");
-        }
+        AppointmentStatus search = convertStringToStatus(status);
+        return appointmentRepository.findAllByStatus(search);
     }
 
     @Override
@@ -52,18 +48,26 @@ public class AppointmentService implements AppointmentServiceInterface {
     }
 
     @Override
-    public Appointment updateAppointment(AppointmentDTO appointmentDTO, int id) {
-        Appointment appointmentToUpdate = getAppointmentById(id);
-        Appointment appointmentSource = appointmentMapper.fromDTO(appointmentDTO);
+    public Appointment updateAppointmentStatus(int id, String input) {
+        AppointmentStatus status = convertStringToStatus(input);
+        Appointment appointment = getAppointmentById(id);
 
-        BeanUtils.copyProperties(appointmentSource, appointmentToUpdate);
+        appointment.setStatus(status);
 
-        return appointmentRepository.save(appointmentToUpdate);
+        return appointmentRepository.save(appointment);
     }
 
     @Override
     public void deleteAppointment(int id) {
         Appointment appointmentToDelete = getAppointmentById(id);
         appointmentRepository.delete(appointmentToDelete);
+    }
+
+    private AppointmentStatus convertStringToStatus(String input) {
+        try {
+            return AppointmentStatus.valueOf(input.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            throw new StatusNotFoundException("'" + input + "'" + " not found");
+        }
     }
 }

@@ -15,8 +15,7 @@ public interface AppointmentServiceInterface {
 
     Appointment createNewAppointment(AppointmentDTO appointmentDTO);
 
-    Appointment updateAppointment(AppointmentDTO appointmentDTO, int id);
-
+    Appointment updateAppointmentStatus(int id, String status);
     void deleteAppointment(int id);
 
 }

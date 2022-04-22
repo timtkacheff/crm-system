@@ -32,6 +32,7 @@ public class AppointmentServiceTest {
     @Mock
     private AppointmentMapper appointmentMapper;
 
+
     @AfterEach
     void tearDown() {
         appointmentRepository.deleteAll();
@@ -69,23 +70,6 @@ public class AppointmentServiceTest {
     void shouldThrowStatusNotFoundException() {
         assertThatThrownBy(() -> appointmentService.getAppointmentListByStatus("status"))
                 .isInstanceOf(StatusNotFoundException.class);
-    }
-
-    @Test
-    void shouldUpdateAppointment() {
-
-        AppointmentDTO dtoSource = new AppointmentDTO(1, 1, 3);
-        Appointment source = new Appointment();
-
-        when(appointmentMapper.fromDTO(dtoSource)).thenReturn(source);
-
-        Appointment target = new Appointment();
-
-        when(appointmentRepository.findById(1)).thenReturn(Optional.of(target));
-
-        appointmentService.updateAppointment(dtoSource, 1);
-
-        verify(appointmentRepository).save(target);
     }
 
     @Test

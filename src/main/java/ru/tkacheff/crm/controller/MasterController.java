@@ -9,7 +9,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/masters")
+@RequestMapping("api/v1/masters")
 public record MasterController(MasterService masterService) {
 
     @GetMapping

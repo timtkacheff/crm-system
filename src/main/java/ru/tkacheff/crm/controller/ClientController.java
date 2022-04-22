@@ -9,7 +9,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/clients")
+@RequestMapping("api/v1/clients")
 public record ClientController(ClientService clientService) {
 
     @GetMapping

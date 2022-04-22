@@ -4,6 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import ru.tkacheff.crm.exception.ExceptionEntity;
@@ -24,6 +25,14 @@ public class GlobalExceptionHandler {
         }
 
         return new ResponseEntity<>(response, status);
+    }
+
+    @ExceptionHandler
+    public ResponseEntity<ExceptionEntity> handleMissingParameter(MissingServletRequestParameterException e) {
+        HttpStatus status = HttpStatus.BAD_REQUEST;
+        ExceptionEntity exceptionEntity = new ExceptionEntity(status.value(), e.getLocalizedMessage());
+
+        return new ResponseEntity<>(exceptionEntity, status);
     }
 
 }
